@@ -5,17 +5,21 @@ const game = {
     secretNum: null,
     prevGuesses: [],
     getGuess: function() {
+    var guess;
      do {
-       var guess = parseInt(prompt(`Enter a guess between ${this.smallestNum} and ${this.biggestNum}.`));     
+      guess = parseInt(prompt(`Enter a guess between ${this.smallestNum} and ${this.biggestNum}.`));   
      } 
      while(guess < this.smallestNum || guess > this.biggestNum || isNaN(guess)); 
-     this.prevGuesses.push(guess);
-     this.render(guess);
+     return guess; 
     },
     play: function() {
       this.secretNum = Math.floor(Math.random() * 
         (this.biggestNum - this.smallestNum + 1)) + this.smallestNum;
-        this.getGuess();
+        do {
+          var masterGuess = this.getGuess();
+          this.prevGuesses.push(masterGuess);
+          this.render(masterGuess);
+        } while (masterGuess !== this.secretNum);     
     },
     render: function(guess) {
       if (guess === this.secretNum) {
