@@ -9,4 +9,4 @@ const game = {
     }
   };
 
-  
+  game.prevGuesses = [];
